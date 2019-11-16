@@ -3,9 +3,12 @@ package geektime.spring.springbucks;
 import geektime.spring.springbucks.model.Coffee;
 import geektime.spring.springbucks.model.CoffeeOrder;
 import geektime.spring.springbucks.model.OrderState;
+import geektime.spring.springbucks.model.Publisher;
 import geektime.spring.springbucks.repository.CoffeeRepository;
+import geektime.spring.springbucks.repository.PublisherRepository;
 import geektime.spring.springbucks.service.CoffeeOrderService;
 import geektime.spring.springbucks.service.CoffeeService;
+import geektime.spring.springbucks.service.PublisherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -29,20 +32,30 @@ public class SpringBucksApplication implements ApplicationRunner {
 	@Autowired
 	private CoffeeOrderService orderService;
 
+	@Autowired
+	private PublisherService publisherService;
+	@Autowired
+	private PublisherRepository publisherRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBucksApplication.class, args);
 	}
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		log.info("All Coffee: {}", coffeeRepository.findAll());
-
-		Optional<Coffee> latte = coffeeService.findOneCoffee("Latte");
-		if (latte.isPresent()) {
-			CoffeeOrder order = orderService.createOrder("Li Lei", latte.get());
-			log.info("Update INIT to PAID: {}", orderService.updateState(order, OrderState.PAID));
-			log.info("Update PAID to INIT: {}", orderService.updateState(order, OrderState.INIT));
+		log.info("All Publisher: {}", publisherRepository.findAll());
+		Optional<Publisher> publisher = publisherService.findOnePublisher("TYLER");
+		if(publisher.isPresent()){
+			log.info("I found it. It's {}", publisher.get().getName());
 		}
+//		log.info("All Coffee: {}", coffeeRepository.findAll());
+//
+//		Optional<Coffee> latte = coffeeService.findOneCoffee("Latte");
+//		if (latte.isPresent()) {
+//			CoffeeOrder order = orderService.createOrder("Li Lei", latte.get());
+//			log.info("Update INIT to PAID: {}", orderService.updateState(order, OrderState.PAID));
+//			log.info("Update PAID to INIT: {}", orderService.updateState(order, OrderState.INIT));
+//		}
 	}
 }
 

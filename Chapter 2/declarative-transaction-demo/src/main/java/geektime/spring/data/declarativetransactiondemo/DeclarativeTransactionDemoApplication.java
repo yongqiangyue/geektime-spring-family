@@ -24,25 +24,29 @@ public class DeclarativeTransactionDemoApplication implements CommandLineRunner 
 
 	@Override
 	public void run(String... args) throws Exception {
-		fooService.insertRecord();
+//		fooService.insertRecord();
+//		log.info("AAA {}",
+//				jdbcTemplate
+//						.queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='AAA'", Long.class));
+//		try {
+//			fooService.insertThenRollback();
+//		} catch (Exception e) {
+//			log.info("run, 有事务回滚才对。0=BBB {}",
+//					jdbcTemplate
+//							.queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='BBB'", Long.class));
+//		}
+//
+		try {
+			fooService.invokeInsertThenRollback();
+		} catch (RollbackException e) {
+
+		}
 		log.info("AAA {}",
 				jdbcTemplate
 						.queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='AAA'", Long.class));
-		try {
-			fooService.insertThenRollback();
-		} catch (Exception e) {
-			log.info("BBB {}",
-					jdbcTemplate
-							.queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='BBB'", Long.class));
-		}
-
-		try {
-			fooService.invokeInsertThenRollback();
-		} catch (Exception e) {
-			log.info("BBB {}",
-					jdbcTemplate
-							.queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='BBB'", Long.class));
-		}
+		log.info("BBB {}",
+				jdbcTemplate
+						.queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='BBB'", Long.class));
 	}
 }
 

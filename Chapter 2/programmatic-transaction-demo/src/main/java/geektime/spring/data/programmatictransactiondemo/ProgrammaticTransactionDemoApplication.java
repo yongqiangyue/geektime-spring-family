@@ -37,6 +37,8 @@ public class ProgrammaticTransactionDemoApplication implements CommandLineRunner
 	}
 
 	private long getCount() {
+//		Object o = jdbcTemplate.queryForList("SELECT COUNT(*) AS CNT FROM FOO").get(0).get("CNT");
+//		log.info("yueyq={}", o);
 		return (long) jdbcTemplate.queryForList("SELECT COUNT(*) AS CNT FROM FOO")
 				.get(0).get("CNT");
 	}

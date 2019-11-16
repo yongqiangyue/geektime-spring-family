@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Table(name = "T_ORDER")
 @Data
-@ToString(callSuper = true)
+@ToString(callSuper = true)  // 打印父节点的属性
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,5 +31,5 @@ public class CoffeeOrder extends BaseEntity implements Serializable {
     private List<Coffee> items;
     @Enumerated
     @Column(nullable = false)
-    private OrderState state;
+    private OrderState state; // 使用枚举类型
 }

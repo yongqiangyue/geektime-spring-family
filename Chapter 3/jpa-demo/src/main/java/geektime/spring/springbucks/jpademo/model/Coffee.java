@@ -4,37 +4,37 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Parameter;
 import org.joda.money.Money;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name = "T_MENU")
+@Entity // 定义实体类，实体类与一张表一一对应
+@Table(name = "T_MENU") // 定义实体类对应的表的名称
 @Builder
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor // @Builder, @Data, @NoArgsConstructor, @AllArgsConstructor都是与lombok相关的
 public class Coffee implements Serializable {
     @Id
-    @GeneratedValue
-    private Long id;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // 主键
+    private String name; // 菜单名称
     @Column
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmount",
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyMinorAmount",
             parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "CNY")})
-    private Money price;
+    private Money price; // 金额
     @Column(updatable = false)
     @CreationTimestamp
-    private Date createTime;
+    private Date createTime; // 创建时间
     @UpdateTimestamp
-    private Date updateTime;
+    private Date updateTime; // 更新时间
+//    @Columns(columns = { @Column(name = "MY_CURRENCY"), @Column(name = "MY_AMOUNT") })
+//    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmountAndCurrency")
+//    private Money price;
 }

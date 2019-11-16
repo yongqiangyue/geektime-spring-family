@@ -75,11 +75,11 @@ public class JpaDemoApplication implements ApplicationRunner {
 	}
 
 	private void findOrders() {
-		coffeeRepository
-				.findAll(Sort.by(Sort.Direction.DESC, "id"))
-				.forEach(c -> log.info("Loading {}", c));
+//		coffeeRepository
+//				.findAll(Sort.by(Sort.Direction.DESC, "id"))
+//				.forEach(c -> log.info("Loading {}", c));
 
-		List<CoffeeOrder> list = orderRepository.findTop3ByOrderByUpdateTimeDescIdAsc();
+		List<CoffeeOrder> list = orderRepository.findTop1ByOrderByUpdateTimeDescIdAsc();
 		log.info("findTop3ByOrderByUpdateTimeDescIdAsc: {}", getJoinedOrderId(list));
 
 		list = orderRepository.findByCustomerOrderById("Li Lei");
@@ -90,9 +90,9 @@ public class JpaDemoApplication implements ApplicationRunner {
 			log.info("Order {}", o.getId());
 			o.getItems().forEach(i -> log.info("  Item {}", i));
 		});
-
-		list = orderRepository.findByItems_Name("latte");
-		log.info("findByItems_Name: {}", getJoinedOrderId(list));
+//
+//		list = orderRepository.findByItems_Name("latte");
+//		log.info("findByItems_Name: {}", getJoinedOrderId(list));
 	}
 
 	private String getJoinedOrderId(List<CoffeeOrder> list) {

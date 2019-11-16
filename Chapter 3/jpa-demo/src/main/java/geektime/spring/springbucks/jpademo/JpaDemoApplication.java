@@ -33,6 +33,10 @@ public class JpaDemoApplication implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		initOrders();
+//		System.out.println("yueyq====1======");
+//		System.out.println(coffeeRepository.findAll());
+//		System.out.println("yueyq====2======");
+//		System.out.println(orderRepository.findAll());
 	}
 
 	private void initOrders() {
